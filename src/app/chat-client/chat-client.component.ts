@@ -48,20 +48,12 @@ export class ChatClientComponent implements OnInit {
    }
 
    ngOnInit() {
-      if (!!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)) { 
-         navigator.mediaDevices.getUserMedia(this.mediaConstraints).then(this.attachVideo.bind(this)).catch(this.handleError);
-            }
       if (!this.myHostname) {
          this.myHostname = 'localhost';
       }
       console.log('Hostname: ' + this.myHostname);
       this.connect();
    }
-
-   attachVideo(stream) {
-      this.renderer.setProperty(this.local_video.nativeElement, 'srcObject', stream);
-  }
-
 
    sendToServer(msg) {
       const msgJSON = JSON.stringify(msg);
@@ -476,7 +468,7 @@ export class ChatClientComponent implements OnInit {
          try {
             if (!!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)) {
                this.webcamStream = navigator.mediaDevices.getUserMedia(this.mediaConstraints);
-                  }
+            }
             // this.webcamStream = await navigator.mediaDevices.getUserMedia(this.mediaConstraints);
          } catch (err) {
             this.handleGetUserMediaError(err);
