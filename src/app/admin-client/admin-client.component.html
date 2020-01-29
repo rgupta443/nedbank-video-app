@@ -12,7 +12,7 @@
 <div class="caller-container">
   <ul class="list">
     <li *ngFor="let callLog of callLogs">
-      User {{callLog.caller}} is {{connectionStatusText}} operator {{callLog.callee}} at {{callLog.date}}
+      User {{callLog.caller}} is {{callLog.type}} operator {{callLog.callee}} at {{callLog.date}}
     </li>
   </ul>
 </div>

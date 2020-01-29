@@ -36,22 +36,20 @@ export class AdminClientComponent implements OnInit {
                break;
 
             case 'video-answer':
-               this.connectionStatusText = ' connected to';
                this.callLogs.push({
                   caller: msg.target,
                   callee: msg.name,
                   date: new Date().toLocaleString(),
-                  type: 'video-answer'
+                  type: ' connected to'
                });
                break;
 
             case 'hang-up':
-               this.connectionStatusText = ' disconnected with ';
                this.callLogs.push({
                   caller: msg.name,
                   callee: msg.disconnectedTarget,
                   date: new Date().toLocaleString(),
-                  type: 'hang-up'
+                  type: ' disconnected with'
                });
                break;
          }
