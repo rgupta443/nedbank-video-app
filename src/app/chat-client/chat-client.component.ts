@@ -301,7 +301,8 @@ export class ChatClientComponent implements OnInit {
    }
 
    getFreeUsers(userArray, elem) {
-      return userArray.filter(e => e !== elem);
+      const _onlyOperator = new RegExp(/^Operator.*$/);
+      return userArray.filter(e => e !== elem && _onlyOperator.test(e) );
    }
 
    selectRandomUser(userArray) {
