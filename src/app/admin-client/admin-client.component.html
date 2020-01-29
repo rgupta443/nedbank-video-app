@@ -1,0 +1,18 @@
+<div class="left-box">
+  <span class="header">Available Users online:</span>
+  <ul class="userlistbox">
+    <li *ngFor="let user of userList">
+      {{user}}
+    </li>
+  </ul>
+</div>
+
+<span class="header">Live Call log:</span>
+
+<div class="caller-container">
+  <ul class="list">
+    <li *ngFor="let callLog of callLogs">
+      User {{callLog.caller}} is {{connectionStatusText}} operator {{callLog.callee}} at {{callLog.date}}
+    </li>
+  </ul>
+</div>

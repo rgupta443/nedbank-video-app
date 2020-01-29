@@ -1,0 +1,23 @@
+.userlistbox {
+    grid-area: userlistbox;
+    border: 1px solid black;
+    margin:0;
+    padding:1px;
+    list-style:none;
+    line-height:1.1;
+    overflow-y:auto;
+    overflow-x:hidden;
+    width: 100px;
+    height: 200px;
+    float: left;
+  }
+  
+  .userlistbox li {
+    cursor: pointer;
+    padding: 1px;
+  }
+
+  .left-box {
+    width: 200px;
+    float: left;
+  }

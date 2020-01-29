@@ -16,16 +16,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'nedbank-video-app'`, () => {
+  it(`should have as title 'ssk-video-asst'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('nedbank-video-app');
+    expect(app.title).toEqual('ssk-video-asst');
   });
 
   it('should render title in a h1 tag', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('Welcome to nedbank-video-app!');
+    expect(compiled.querySelector('h1').textContent).toContain('Welcome to ssk-video-asst!');
   });
 });
