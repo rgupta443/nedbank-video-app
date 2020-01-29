@@ -5,12 +5,10 @@
 <div class="camerabox">
   <video class="received_video" #received_video autoplay></video>
   <video class="local_video" #local_video autoplay muted></video>
-  <div style="display: inline-block; width: 200px; position: absolute; top: 330px; left: 25%;">
-    <button id="call-button" (click)="callOperator()" [disabled]="disableCallButton" role="button" disabled>
-      Call
+  <div style="display: inline-block; position: absolute; top: 330px; left: 45%;">
+    <button *ngIf="isLoggedIn" id="call-button" (click)="callOperator()" [disabled]="disableCallButton" role="button" disabled>
     </button>
     <button id="hangup-button" (click)="hangUpCall()" [disabled]="disableButton" role="button" disabled>
-      Hang Up
     </button>
   </div>
 </div>

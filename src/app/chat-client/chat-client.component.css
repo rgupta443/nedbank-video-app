@@ -1,20 +1,3 @@
-/*
-    WebSocket chat client
-
-    WebSocket and WebRTC based multi-user chat sample with two-way video
-    calling, including use of TURN if applicable or necessary.
-
-    This file describes the styling for the contents of the site as
-    presented to users.
-
-    To read about how this sample works:  http://bit.ly/webrtc-from-chat
-
-    Any copyright is dedicated to the Public Domain.
-    http:   creativecommons.org/publicdomain/zero/1.0/
-*/
-
-/* The grid that contains it all */
-
 .container {
     display: grid;
     min-width: 1250px;
@@ -44,14 +27,13 @@
   }
   
   .camerabox {
-    grid-area: camerabox;
-    width: 500px;
-    height: 375px;
+    width: 700px;
+    height: 525px;
     border: 1px solid black;
-    vertical-align: top;
+    border-radius: 5px;
     display: block;
-    position:relative;
-    overflow:auto;
+    position: relative;
+    margin: 0 auto;
   }
   
   .received_video {
@@ -62,8 +44,8 @@
   
   /* The small "preview" view of your camera */
   .local_video {
-    width: 120px;
-    height: 90px;
+    width: 200px;
+    height: 150px;
     position: absolute;
     top: 1rem;
     left: 1rem;
@@ -73,38 +55,29 @@
   
   /* The "Hang up" button */
   #hangup-button {
-    display:block;
-    width:80px;
-    height:24px;
-    border-radius: 8px;
-    position:relative;
-    margin:auto;
-    top:calc(100% - 40px);
-    background-color: rgba(150, 0, 0, 0.7);
-    border: 1px solid rgba(255, 255, 255, 0.7);
-    box-shadow: 0px 0px 1px 2px rgba(0, 0, 0, 0.4);
-    font-size: 14px;
-    font-family: "Lucida Grande", "Arial", sans-serif;
-    color: rgba(255, 255, 255, 1.0);
-    cursor: pointer;
+    display: block;
+  width: 70px;
+  margin-top: 75px;
+  height: 70px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-image: url('./../../assets/png/hangup.png');
+  border-radius: 50%;
+  border: 1px solid #ed384c;
   }
 
   #call-button {
-    display:block;
-    width:80px;
-    height:24px;
-    border-radius: 8px;
-    position:relative;
-    margin:auto;
-    top:calc(100% - 40px);
-    background-color: rgba(0, 150, 80, 0.7);
-    border: 1px solid rgba(255, 255, 255, 0.7);
-    box-shadow: 0px 0px 1px 2px rgba(0, 0, 0, 0.4);
-    font-size: 14px;
-    font-family: "Lucida Grande", "Arial", sans-serif;
-    color: rgba(255, 255, 255, 1.0);
-    cursor: pointer;
-    float: left;
+    display: block;
+  width: 70px;
+  margin-top: 75px;
+  height: 70px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-image: url('./../../assets/png/call.png');
+  border-radius: 50%;
+  border: 1px solid #41af56;
+  float: left;
+  margin-right: 40px;
   }
   
   #hangup-button:hover {
