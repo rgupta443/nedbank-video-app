@@ -48,12 +48,20 @@ export class ChatClientComponent implements OnInit {
    }
 
    ngOnInit() {
+      if (!!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)) { 
+         navigator.mediaDevices.getUserMedia(this.mediaConstraints).then(this.attachVideo.bind(this)).catch(this.handleError);
+            }
       if (!this.myHostname) {
          this.myHostname = 'localhost';
       }
       console.log('Hostname: ' + this.myHostname);
       this.connect();
    }
+
+   attachVideo(stream) {
+      this.renderer.setProperty(this.local_video.nativeElement, 'srcObject', stream);
+  }
+
 
    sendToServer(msg) {
       const msgJSON = JSON.stringify(msg);
