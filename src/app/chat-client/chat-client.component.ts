@@ -405,7 +405,7 @@ export class ChatClientComponent implements OnInit {
             this.webcamStream = await navigator.mediaDevices.getUserMedia(this.mediaConstraints);
             if (!!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)) {
                this.renderer.setProperty(this.local_video.nativeElement, 'srcObject', this.webcamStream);
-               this.renderer.setProperty(this.local_video.nativeElement, 'muted', true);
+               this.local_video.nativeElement.muted = true;
             }
          } catch (err) {
             console.log(err);

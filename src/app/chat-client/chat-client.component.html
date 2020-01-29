@@ -4,7 +4,7 @@
 
 <div class="camerabox">
   <video class="received_video" #received_video autoplay></video>
-  <video class="local_video" #local_video autoplay [muted]="true"></video>
+  <video class="local_video" #local_video autoplay muted></video>
   <div style="display: inline-block; width: 200px; position: absolute; top: 330px; left: 25%;">
     <button id="call-button" (click)="callOperator()" [disabled]="disableCallButton" role="button" disabled>
       Call
