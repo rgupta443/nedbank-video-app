@@ -466,7 +466,10 @@ export class ChatClientComponent implements OnInit {
       // Get the webcam stream if we don't already have it
       if (!this.webcamStream) {
          try {
-            this.webcamStream = await navigator.mediaDevices.getUserMedia(this.mediaConstraints);
+            if (!!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)) {
+               this.webcamStream = navigator.mediaDevices.getUserMedia(this.mediaConstraints);
+                  }
+            // this.webcamStream = await navigator.mediaDevices.getUserMedia(this.mediaConstraints);
          } catch (err) {
             this.handleGetUserMediaError(err);
             return;
