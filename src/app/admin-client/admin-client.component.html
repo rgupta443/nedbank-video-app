@@ -7,9 +7,8 @@
   </ul>
 </div>
 
-<span class="header">Live Call log:</span>
-
 <div class="caller-container">
+  <span class="header">Live Call log:</span>
   <ul class="list">
     <li *ngFor="let callLog of callLogs">
       User {{callLog.caller}} is {{callLog.type}} operator {{callLog.callee}} at {{callLog.date}}

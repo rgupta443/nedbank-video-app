@@ -292,7 +292,9 @@ export class ChatClientComponent implements OnInit {
    }
 
    callOperator() {
-      let filteredArray = this.getFreeUsers(this.operator_list, this.myUsername);
+      const _onlyOperator = new RegExp(/^Operator.*$/);
+      let filteredArray = this.operator_list.filter(e => _onlyOperator.test(e));
+      filteredArray = this.getFreeUsers(this.operator_list, this.myUsername);
       if (this.targetUsername) {
          filteredArray = this.getFreeUsers(this.operator_list, this.targetUsername);
       }
@@ -301,8 +303,7 @@ export class ChatClientComponent implements OnInit {
    }
 
    getFreeUsers(userArray, elem) {
-      const _onlyOperator = new RegExp(/^Operator.*$/);
-      return userArray.filter(e => e !== elem && _onlyOperator.test(e) );
+      return userArray.filter(e => e !== elem);
    }
 
    selectRandomUser(userArray) {

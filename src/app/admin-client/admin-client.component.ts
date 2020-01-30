@@ -15,6 +15,7 @@ export class AdminClientComponent implements OnInit {
    connectionStatusText = '';
    callLogs = [];
    userList = [];
+   updatedList = [];
 
    constructor(private connectionService: ConnectionService) { }
 
@@ -40,7 +41,8 @@ export class AdminClientComponent implements OnInit {
                   caller: msg.target,
                   callee: msg.name,
                   date: new Date().toLocaleString(),
-                  type: ' connected to'
+                  type: ' connected to',
+                  status: 'busy'
                });
                break;
 
@@ -49,10 +51,22 @@ export class AdminClientComponent implements OnInit {
                   caller: msg.name,
                   callee: msg.disconnectedTarget,
                   date: new Date().toLocaleString(),
-                  type: ' disconnected with'
+                  type: ' disconnected with',
+                  status: 'free'
                });
                break;
          }
+
+         // this.userList.forEach((elem, idx) => {
+         //    if (this.updatedList[idx].name !== idx) {
+         //       this.updatedList.push({
+         //          name: elem,
+         //          status: ''
+         //       });
+         //    }
+         // });
+
+         console.log(this.updatedList);
       };
    }
 
