@@ -306,7 +306,7 @@ export class ChatClientComponent implements OnInit {
    }
 
    selectRandomUser(userArray) {
-      return userArray[Math.floor(Math.random() * this.operator_list.length)];
+      return userArray[Math.floor(Math.random() * userArray.length)];
    }
 
    // Close the RTCPeerConnection and reset variables so that the user can
@@ -333,9 +333,10 @@ export class ChatClientComponent implements OnInit {
 
          // Stop all transceivers on the connection
 
-         // this.myPeerConnection.getTransceivers().forEach(transceiver => {
-         //    transceiver.stop();
-         // });
+         this.myPeerConnection.getTransceivers().forEach(transceiver => {
+            console.log(transceiver);
+            // transceiver.stop();
+         });
 
          // Stop the webcam preview as well by pausing the <video>
          // element, then stopping each of the getUserMedia() tracks
@@ -346,6 +347,7 @@ export class ChatClientComponent implements OnInit {
             this.local_video.nativeElement.srcObject.getTracks().forEach(track => {
                track.stop();
             });
+            this.local_video.nativeElement.srcObject = null;
          }
 
          // Close the peer connection
@@ -353,6 +355,9 @@ export class ChatClientComponent implements OnInit {
          this.myPeerConnection.close();
          this.myPeerConnection = null;
          this.webcamStream = null;
+      } else {
+         this.disableButton = true;
+         return;
       }
 
       // Disable the hangup button
@@ -377,13 +382,18 @@ export class ChatClientComponent implements OnInit {
       });
    }
 
-   async invite(evt) {
+   async invite(user) {
       console.log('Starting to prepare an invitation');
       this.disableCallButton = true;
       if (this.myPeerConnection) {
          alert(`You can't start a call because you already have one open!`);
       } else {
-         const _username = evt; // evt.target.textContent;
+         const _username = user; // evt.target.textContent;
+
+         if (user === this.myUsername) {
+            alert('Talking to yourself :P');
+            return;
+         }
 
          // Record the username being called for future reference
 
@@ -406,7 +416,13 @@ export class ChatClientComponent implements OnInit {
             this.webcamStream = await navigator.mediaDevices.getUserMedia(this.mediaConstraints);
             if (!!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)) {
                this.renderer.setProperty(this.local_video.nativeElement, 'srcObject', this.webcamStream);
-               this.local_video.nativeElement.muted = true;
+               this.local_video.nativeElement.volume = 0.9;
+               const context = new AudioContext();
+               const sineWave = context.createOscillator();
+               const gainNode = context.createGain();
+               sineWave.connect(gainNode);
+               gainNode.connect(context.destination);
+               gainNode.gain.value = 0.9;
             }
          } catch (err) {
             console.log(err);
@@ -484,6 +500,7 @@ export class ChatClientComponent implements OnInit {
          } catch (err) {
             this.handleGetUserMediaError(err);
          }
+         this.disableButton = false;
       }
 
       console.log('Creating and sending answer to caller');
