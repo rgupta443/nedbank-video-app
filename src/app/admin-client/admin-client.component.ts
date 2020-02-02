@@ -16,6 +16,7 @@ export class AdminClientComponent implements OnInit {
    callLogs = [];
    userList = [];
    updatedList = [];
+   isDisconnected = false;
 
    constructor(private connectionService: ConnectionService) { }
 
@@ -23,7 +24,6 @@ export class AdminClientComponent implements OnInit {
       this.connection = this.connectionService.connectToServer();
 
       this.connection.onmessage = (evt) => {
-         console.log(evt);
          const msg = JSON.parse(evt.data);
          if (msg.users) {
             msg.users = msg.users.filter((el) => {
@@ -33,7 +33,7 @@ export class AdminClientComponent implements OnInit {
          switch (msg.type) {
             case 'userlist':      // Received an updated user list
                this.userList = msg.users;
-               console.log(this.userList);
+               this.isDisconnected = false;
                break;
 
             case 'video-answer':
@@ -43,6 +43,15 @@ export class AdminClientComponent implements OnInit {
                   date: new Date().toLocaleString(),
                   type: ' connected to',
                   status: 'busy'
+               });
+               this.isDisconnected = true;
+               this.updatedList.forEach((val, idx) => {
+                  if (val.name === msg.name) {
+                     this.updatedList[idx].status = 'busy';
+                  }
+                  if (val.name === msg.disconnectedTarget) {
+                     this.updatedList[idx].status = 'busy';
+                  }
                });
                break;
 
@@ -54,19 +63,29 @@ export class AdminClientComponent implements OnInit {
                   type: ' disconnected with',
                   status: 'free'
                });
+               this.isDisconnected = true;
+               this.updatedList.forEach((val, idx) => {
+                  console.log(val);
+                  if (val.name === msg.name) {
+                     console.log('ere');
+                     this.updatedList[idx].status = 'free';
+                  }
+                  if (val.name === msg.disconnectedTarget) {
+                     this.updatedList[idx].status = 'free';
+                  }
+               });
                break;
          }
 
-         // this.userList.forEach((elem, idx) => {
-         //    if (this.updatedList[idx].name !== idx) {
-         //       this.updatedList.push({
-         //          name: elem,
-         //          status: ''
-         //       });
-         //    }
-         // });
-
-         console.log(this.updatedList);
+         if (!this.isDisconnected) {
+            this.updatedList = [];
+            this.userList.forEach(val => {
+               this.updatedList.push({
+                  name: val,
+                  status: 'free'
+               });
+            });
+         }
       };
    }
 

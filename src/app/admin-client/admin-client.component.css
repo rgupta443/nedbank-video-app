@@ -23,6 +23,18 @@
     float: left;
   }
 
+  .red {
+    display: inline-block;
+    background-color: red;
+    color: white;
+  }
+
+  .green {
+    display: inline-flex;
+    background-color: green;
+    color: white;
+  }
+
   .header {
     display: block;
     margin-bottom: 20px;

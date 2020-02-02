@@ -1,8 +1,9 @@
 <div class="left-box">
   <span class="header">Available Users online:</span>
   <ul class="userlistbox">
-    <li *ngFor="let user of userList">
-      {{user}}
+    <li *ngFor="let user of updatedList">
+      <span [ngClass]="{'red': user.status === 'busy', 
+                        'green': user.status === 'free'}">{{user.name}}</span>
     </li>
   </ul>
 </div>
