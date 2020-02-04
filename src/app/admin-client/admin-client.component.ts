@@ -17,6 +17,8 @@ export class AdminClientComponent implements OnInit {
    userList = [];
    updatedList = [];
    isDisconnected = false;
+   _sskUserList = [];
+   temp = [];
 
    constructor(private connectionService: ConnectionService) { }
 
@@ -37,22 +39,34 @@ export class AdminClientComponent implements OnInit {
                break;
 
             case 'video-answer':
-               this.callLogs.push({
+               this.temp.push({
                   caller: msg.target,
                   callee: msg.name,
                   date: new Date().toLocaleString(),
-                  type: ' connected to',
-                  status: 'busy'
+                  type: '--->',
+                  status: msg.status
                });
-               this.isDisconnected = true;
+
+               if (this.temp.length === 2) {
+                  this.callLogs.push(this.temp[0]);
+               }
                this.updatedList.forEach((val, idx) => {
                   if (val.name === msg.name) {
-                     this.updatedList[idx].status = 'busy';
+                     this.updatedList[idx].status = msg.status;
                   }
                   if (val.name === msg.disconnectedTarget) {
-                     this.updatedList[idx].status = 'busy';
+                     this.updatedList[idx].status = msg.status;
                   }
                });
+               this._sskUserList.forEach((val, idx) => {
+                  if (val.name === msg.name) {
+                     this._sskUserList[idx].status = msg.status;
+                  }
+                  if (val.name === msg.disconnectedTarget) {
+                     this._sskUserList[idx].status = msg.status;
+                  }
+               });
+               this.isDisconnected = true;
                break;
 
             case 'hang-up':
@@ -60,30 +74,45 @@ export class AdminClientComponent implements OnInit {
                   caller: msg.name,
                   callee: msg.disconnectedTarget,
                   date: new Date().toLocaleString(),
-                  type: ' disconnected with',
+                  type: 'X',
                   status: 'free'
                });
                this.isDisconnected = true;
                this.updatedList.forEach((val, idx) => {
-                  console.log(val);
                   if (val.name === msg.name) {
-                     console.log('ere');
                      this.updatedList[idx].status = 'free';
                   }
                   if (val.name === msg.disconnectedTarget) {
                      this.updatedList[idx].status = 'free';
                   }
                });
+               this._sskUserList.forEach((val, idx) => {
+                  if (val.name === msg.name) {
+                     this._sskUserList[idx].status = 'free';
+                  }
+                  if (val.name === msg.disconnectedTarget) {
+                     this._sskUserList[idx].status = 'free';
+                  }
+               });
                break;
          }
 
          if (!this.isDisconnected) {
+            const _onlyOperator = new RegExp(/^Operator.*$/);
             this.updatedList = [];
+            this._sskUserList = [];
             this.userList.forEach(val => {
-               this.updatedList.push({
-                  name: val,
-                  status: 'free'
-               });
+               if (_onlyOperator.test(val)) {
+                  this.updatedList.push({
+                     name: val,
+                     status: 'free'
+                  });
+               } else {
+                  this._sskUserList.push({
+                     name: val,
+                     status: 'free'
+                  });
+               }
             });
          }
       };

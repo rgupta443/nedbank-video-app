@@ -24,8 +24,8 @@ export class ConnectionService {
       if (document.location.protocol === 'https:') {
          scheme += 's';
       }
-      // serverUrl = scheme + '://' + this.myHostname + ':6503';
-      serverUrl = 'wss://polar-crag-19352.herokuapp.com/' + ':6503';
+      serverUrl = scheme + '://' + this.myHostname + ':6503';
+      // serverUrl = 'wss://polar-crag-19352.herokuapp.com/' + ':6503';
 
       console.log(`Connecting to server: ${serverUrl}`);
       this.connection = new WebSocket(serverUrl, 'json');

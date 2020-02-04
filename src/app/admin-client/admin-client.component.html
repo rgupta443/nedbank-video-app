@@ -1,7 +1,15 @@
 <div class="left-box">
-  <span class="header">Available Users online:</span>
+  <span class="header">Available Operators online:</span>
   <ul class="userlistbox">
     <li *ngFor="let user of updatedList">
+      <span [ngClass]="{'red': user.status === 'busy', 
+                        'green': user.status === 'free'}">{{user.name}}</span>
+    </li>
+  </ul>
+
+  <span class="header">Users connected</span>
+  <ul class="userlistbox">
+    <li *ngFor="let user of _sskUserList">
       <span [ngClass]="{'red': user.status === 'busy', 
                         'green': user.status === 'free'}">{{user.name}}</span>
     </li>
@@ -12,7 +20,7 @@
   <span class="header">Live Call log:</span>
   <ul class="list">
     <li *ngFor="let callLog of callLogs">
-      User {{callLog.caller}} is {{callLog.type}} operator {{callLog.callee}} at {{callLog.date}}
+      <p><span >{{callLog.caller}}</span> {{callLog.type}} <span>{{callLog.callee}}</span></p>
     </li>
   </ul>
 </div>
